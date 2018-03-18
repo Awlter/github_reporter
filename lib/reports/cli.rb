@@ -20,12 +20,11 @@ module Reports
     def user_info(username)
       puts "Getting user information for #{username}"
 
-      response = Faraday.get "https://api.github.com/users/#{username}"
-      data = JSON.parse(response.body)
+      user = GitHubAPIClient.get_user(username)
 
-      puts "Name: #{data['name']}"
-      puts "Location: #{data['location']}"
-      puts "Public repos: #{data['public_repos']}"
+      puts "Name: #{user.name}"
+      puts "Location: #{user.location}"
+      puts "Public repos: #{user.public_repos}"
     end
 
     private
