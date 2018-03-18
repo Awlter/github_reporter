@@ -13,7 +13,7 @@ module Reports
       response = Faraday.get url
       duration = Time.now - start_time
 
-      puts "-> %s %s %d" % [url, 'GET', response.status]
+      puts "-> %s %s %d (%.3f s)" % [url, 'GET', response.status, duration]
 
       data = JSON.parse(response.body)
       User.new(data['name'], data['location'], data['public_repos'])
