@@ -10,6 +10,7 @@ module Reports
 
     def initialize
       @logger = Logger.new(STDOUT)
+      logger.formatter = proc { |_, _, _, msg| msg + "\n" }
     end
 
     def get_user(username)
