@@ -20,7 +20,7 @@ module Reports
     def user_info(username)
       puts "Getting user information for #{username}"
 
-      user = GitHubAPIClient.get_user(username)
+      user = GitHubAPIClient.new.get_user(username)
 
       puts "Name: #{user.name}"
       puts "Location: #{user.location}"
