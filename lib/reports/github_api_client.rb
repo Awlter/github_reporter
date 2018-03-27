@@ -1,8 +1,11 @@
 require 'faraday'
 require 'json'
 require 'logger'
+require 'byebug'
 
 module Reports
+  class NonexistentUser < StandardError; end
+
   User = Struct.new(:name, :location, :public_repos)
 
   class GitHubAPIClient
@@ -21,6 +24,10 @@ module Reports
       duration = Time.now - start_time
 
       logger.debug "-> %s %s %d (%.3f s)" % [url, 'GET', response.status, duration]
+
+      if response.status == 404
+        raise NonexistentUser, "'#{username}' doesn't exist."
+      end
 
       data = JSON.parse(response.body)
       User.new(data['name'], data['location'], data['public_repos'])

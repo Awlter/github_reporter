@@ -25,6 +25,9 @@ module Reports
       puts "Name: #{user.name}"
       puts "Location: #{user.location}"
       puts "Public repos: #{user.public_repos}"
+    rescue NonexistentUser => e
+      puts "ERROR #{e.message}"
+      exit 1
     end
 
     private
